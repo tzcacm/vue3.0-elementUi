@@ -7,6 +7,7 @@ const loginLoadpage = () => import('@/pages/Login.vue');
 const homeLoadPage = () => import('@/pages/Home.vue');
 import Index from '@/components/views/Index';
 import Table from '@/components/views/Table';
+import List from '@/components/views/List';
 
 const router = new Router({
   routes: [{
@@ -24,8 +25,11 @@ const router = new Router({
         component: Index
       },
       {
-        path: 'table',
-        component: Table
+        path: 'index',
+        component: Index
+      }, {
+        path: 'list',
+        component: List
       }
     ]
   }, {

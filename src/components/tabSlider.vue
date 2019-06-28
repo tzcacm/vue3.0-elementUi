@@ -1,27 +1,36 @@
 <template>
   <div class="tabSlider">
     <el-menu
-      default-active="1-4-1"
+      :default-active="defaultActive"
       class="el-menu-vertical-demo"
       background-color="#242f42"
       text-color="#fff"
-      active-text-color="#fff"
+      active-text-color="#29aff6"
       :collapse="isCollapse"
     >
-      <el-menu-item index="0">
-        <i class="el-icon-menu"></i>
-        <span slot="title">首页</span>
-      </el-menu-item>
-
-      <el-submenu :index="index+1" v-for="(items,index) in menu" :key="index">
-        <template slot="title">
-          <i class="el-icon-location"></i>
+      <template v-for="(items,index) in menu">
+        <el-menu-item
+          :key="index"
+          :index="items.index"
+          v-if="index <= 0"
+          @click="addMenu(index,index,items.title,items.path)"
+        >
+          <i :class="items.class"></i>
           <span slot="title">{{items.title}}</span>
-        </template>
-        <el-menu-item-group v-for="(val,key) in items.data" :key="key">
-          <el-menu-item index="2-1" @click="addTab(editableTabsValue)">{{val.title}}</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
+        </el-menu-item>
+        <el-submenu :key="index" :index="items.index" v-if="index > 0">
+          <template slot="title">
+            <i :class="items.class"></i>
+            <span slot="title">{{items.title}}</span>
+          </template>
+          <el-menu-item
+            v-for="(val,key) in items.data"
+            :key="key"
+            :index="val.index"
+            @click="addMenu(index,key,val.title,val.path)"
+          >{{val.title}}</el-menu-item>
+        </el-submenu>
+      </template>
     </el-menu>
   </div>
 </template>
@@ -30,24 +39,19 @@ import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 @Component
 export default class TabSlider extends Vue {
-  @Prop({
-    type: Boolean, // 父组件传递给子组件的数据类型
-    required: true, // 是否必填
-    default: false // 默认值， 如果传入的是 Object，则要 default: ()=>({}) 参数为函数
-  })
-  isCollapse: Boolean;
+  @Prop() isCollapse: Boolean;
+  @Prop() defaultActive: string;
   menu: any[] = this.$menu;
-  constructor() {
-    super();
-    console.log(this.menu);
-  }
 
-  addTab() {}
+  addMenu(index, key, title, path) {
+    this.$router.replace(path);
+    this.$emit('addMenu', index, key, title, path);
+  }
 }
 </script>
 <style lang="scss">
-.tabSlider {
-  width: 201px;
+.el-menu-vertical-demo {
+  height: 100%;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;

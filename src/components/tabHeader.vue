@@ -36,7 +36,7 @@ export default class TabHeader extends Vue {
   handleCommand(event) {
     event == 'a'
       ? this.$alert('我是高级前端兼CEO唐总')
-      : this.$router.replace('login');
+      : this.$router.replace('/login');
   }
   zoom() {
     !this.isZoom ? this.openZoom() : this.closeZoom();

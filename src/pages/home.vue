@@ -2,9 +2,9 @@
   <div class="home">
     <tabHeader v-on:collapse="collapse"></tabHeader>
     <div class="content">
-      <tabSlider :isCollapse="isCollapse"></tabSlider>
+      <tabSlider :defaultActive="defaultActive" v-on:addMenu="addMenu" :isCollapse="isCollapse"></tabSlider>
       <dir class="content_box">
-        <tabCard :dynamicTags="dynamicTags"></tabCard>
+        <tabCard :editableTabs="editableTabs" v-on:changeTab="changeTab" v-on:removeTab="removeTab"></tabCard>
         <router-view></router-view>
       </dir>
     </div>
@@ -27,22 +27,111 @@ export default class Home extends Vue {
   // 初始化--随机背景图片
   isCollapse: boolean = false;
   dynamicTags: string[] = [];
+  //tab定义
+  defaultActive: string = '1';
+  editableTabs: any[] = [];
   created() {
-    if (JSON.parse(localStorage.getItem('personInfo'))) {
+    if (JSON.parse(localStorage.getItem('personInfo')))
       localStorage.removeItem('personInfo');
+    if (!this.editableTabs.length) {
+      this.editableTabs = [
+        {
+          index: 1,
+          key: 1,
+          title: '首页',
+          check: true,
+          path: '/home/index'
+        }
+      ];
+      this.$router.replace(this.editableTabs[0].path);
     }
   }
   collapse(event) {
     this.isCollapse = event;
   }
+
+  //点击Menu
+  addMenu(index, key, title, path) {
+    let isNext = true;
+    this.editableTabs.map(item => {
+      item['check'] = false;
+    });
+    if (this.editableTabs.length > 0) {
+      this.editableTabs.map(item => {
+        if (item['title'] == title) {
+          item['check'] = true;
+          isNext = false;
+        }
+      });
+    }
+    if (!isNext) return;
+    this.editableTabs.push({
+      index: index,
+      key: key,
+      title: title,
+      check: true,
+      path: path
+    });
+  }
+
+  //点击tab
+  changeTab(title) {
+    this.editableTabs.map(item => {
+      item['check'] = false;
+    });
+    this.editableTabs.map(item => {
+      if (item['title'] == title) {
+        item['check'] = true;
+      }
+    });
+  }
+
+  //删除tab
+  removeTab(index) {
+    if (this.editableTabs[index].check) {
+      this.editableTabs.splice(index, 1);
+      if (this.editableTabs.length == 1) {
+        setTimeout(() => {
+          this.editableTabs[0].check = true;
+          this.$router.replace('/home/index');
+        }, 0);
+      } else {
+        setTimeout(() => {
+          this.editableTabs.map(item => {
+            item.check = false;
+          });
+          this.editableTabs[this.editableTabs.length - 1].check = true;
+          this.$router.replace(
+            this.editableTabs[this.editableTabs.length - 1].path
+          );
+        }, 0);
+      }
+    } else {
+      let title = this.editableTabs.filter(val => val.check)[0].title;
+      this.editableTabs.splice(index, 1);
+      setTimeout(() => {
+        this.editableTabs.map(item => {
+          item.check = false;
+        });
+        this.editableTabs.map(item => {
+          if (item['title'] == title) {
+            item['check'] = true;
+            this.$router.replace(item.path);
+          }
+        });
+      }, 0);
+    }
+  }
 }
 </script>
 <style lang="scss">
 .content {
+  position: fixed;
+  width: 100%;
+  height: 100%;
   display: flex;
 }
 .content_box {
-  padding: 5%;
 }
 </style>
 
