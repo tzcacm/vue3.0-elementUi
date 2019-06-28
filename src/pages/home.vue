@@ -3,10 +3,18 @@
     <tabHeader v-on:collapse="collapse"></tabHeader>
     <div class="content">
       <tabSlider :defaultActive="defaultActive" v-on:addMenu="addMenu" :isCollapse="isCollapse"></tabSlider>
-      <dir class="content_box">
-        <tabCard :editableTabs="editableTabs" v-on:changeTab="changeTab" v-on:removeTab="removeTab"></tabCard>
-        <router-view></router-view>
-      </dir>
+      <div class="content_box">
+        <div class="tabCard">
+          <tabCard
+            :editableTabs="editableTabs"
+            v-on:changeTab="changeTab"
+            v-on:removeTab="removeTab"
+          ></tabCard>
+        </div>
+        <div class="tabRouter">
+          <router-view></router-view>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -132,6 +140,16 @@ export default class Home extends Vue {
   display: flex;
 }
 .content_box {
+  position: relative;
+}
+.tabCard {
+  position: fixed;
+  width: 100%;
+}
+.tabRouter {
+  position: fixed;
+  width: 100%;
+  top: 115px;
 }
 </style>
 

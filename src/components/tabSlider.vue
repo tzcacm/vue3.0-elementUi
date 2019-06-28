@@ -1,7 +1,7 @@
 <template>
   <div class="tabSlider">
     <el-menu
-      :default-active="defaultActive"
+      :default-active="3-1-1"
       class="el-menu-vertical-demo"
       background-color="#242f42"
       text-color="#fff"
