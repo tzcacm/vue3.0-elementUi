@@ -1,7 +1,7 @@
 <template>
   <div class="tabSlider">
     <el-menu
-      :default-active="3-1-1"
+      :default-active="defaultActive"
       class="el-menu-vertical-demo"
       background-color="#242f42"
       text-color="#fff"
@@ -13,7 +13,7 @@
           :key="index"
           :index="items.index"
           v-if="index <= 0"
-          @click="addMenu(index,index,items.title,items.path)"
+          @click="addMenu(items.index,items.title,items.path)"
         >
           <i :class="items.class"></i>
           <span slot="title">{{items.title}}</span>
@@ -27,7 +27,7 @@
             v-for="(val,key) in items.data"
             :key="key"
             :index="val.index"
-            @click="addMenu(index,key,val.title,val.path)"
+            @click="addMenu(val.index,val.title,val.path)"
           >{{val.title}}</el-menu-item>
         </el-submenu>
       </template>
@@ -43,9 +43,9 @@ export default class TabSlider extends Vue {
   @Prop() defaultActive: string;
   menu: any[] = this.$menu;
 
-  addMenu(index, key, title, path) {
+  addMenu(index, title, path) {
     this.$router.replace(path);
-    this.$emit('addMenu', index, key, title, path);
+    this.$emit('addMenu', index, title, path);
   }
 }
 </script>

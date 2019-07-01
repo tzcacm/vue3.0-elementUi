@@ -44,13 +44,13 @@ export default class Home extends Vue {
     if (!this.editableTabs.length) {
       this.editableTabs = [
         {
-          index: 1,
-          key: 1,
+          index: '1',
           title: '首页',
           check: true,
           path: '/home/index'
         }
       ];
+      this.defaultActive = this.editableTabs[0].index;
       this.$router.replace(this.editableTabs[0].path);
     }
   }
@@ -59,7 +59,7 @@ export default class Home extends Vue {
   }
 
   //点击Menu
-  addMenu(index, key, title, path) {
+  addMenu(index, title, path) {
     let isNext = true;
     this.editableTabs.map(item => {
       item['check'] = false;
@@ -75,7 +75,6 @@ export default class Home extends Vue {
     if (!isNext) return;
     this.editableTabs.push({
       index: index,
-      key: key,
       title: title,
       check: true,
       path: path
@@ -89,6 +88,7 @@ export default class Home extends Vue {
     });
     this.editableTabs.map(item => {
       if (item['title'] == title) {
+        this.defaultActive = item.index;
         item['check'] = true;
       }
     });
@@ -101,6 +101,7 @@ export default class Home extends Vue {
       if (this.editableTabs.length == 1) {
         setTimeout(() => {
           this.editableTabs[0].check = true;
+          this.defaultActive = this.editableTabs[0].index;
           this.$router.replace('/home/index');
         }, 0);
       } else {
@@ -109,6 +110,9 @@ export default class Home extends Vue {
             item.check = false;
           });
           this.editableTabs[this.editableTabs.length - 1].check = true;
+          this.defaultActive = this.editableTabs[
+            this.editableTabs.length - 1
+          ].index;
           this.$router.replace(
             this.editableTabs[this.editableTabs.length - 1].path
           );
