@@ -1,25 +1,44 @@
 <template>
-  <div class="tabHeader">
-    <div class="tabHeader_label">
-      <div class="el-icon-menu label_icon" v-on:click="changeTab"></div>
-      <div class="label_title">后台管理系统</div>
+  <el-row>
+    <div class="tabHeader">
+      <el-col :span="5">
+        <el-col :span="9" :sm="9" :md="5" :xl="5" :xs="24">
+          <div class="label_icon">
+            <div class="el-icon-menu" v-on:click="changeTab"></div>
+          </div>
+        </el-col>
+        <el-col :span="15" :sm="15" :md="17" :xl="19" :xs="0">
+          <div class="label_title">后台管理系统</div>
+        </el-col>
+      </el-col>
+      <el-col :span="19">
+        <el-col :span="18" :xl="19" :md="17" :sm="16" :xs="18">
+          <div class="label_bank">1</div>
+        </el-col>
+        <el-col :span="4" :xl="3" :md="5" :sm="5" :xs="0">
+          <div class="tabHeader_tool">
+            <div class="label_icon el-icon-rank" v-on:click="zoom"></div>
+            <div class="label_icon el-icon-message-solid" v-on:click="goMessage"></div>
+            <img class="label_img" src="../assets/images/person.jpg" alt="作者" />
+          </div>
+        </el-col>
+        <el-col :span="2" :xl="2" :md="2" :sm="3" :xs="6">
+          <div class="tabHeader_tool">
+            <el-dropdown @command="handleCommand">
+              <span class="el-dropdown-link">
+                admin
+                <i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="a">关于作者</el-dropdown-item>
+                <el-dropdown-item command="b">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+        </el-col>
+      </el-col>
     </div>
-    <div class="tabHeader_tool">
-      <div class="label_icon el-icon-rank" v-on:click="zoom"></div>
-      <div class="label_icon el-icon-message-solid" v-on:click="goMessage"></div>
-      <img class="label_img" src="../assets/images/person.jpg" alt="作者">
-      <el-dropdown @command="handleCommand">
-        <span class="el-dropdown-link">
-          admin
-          <i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="a">关于作者</el-dropdown-item>
-          <el-dropdown-item command="b">退出登录</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
-  </div>
+  </el-row>
 </template>
 <script lang='ts'>
 import Vue from 'vue';
@@ -55,14 +74,14 @@ export default class TabHeader extends Vue {
 </script>
 <style lang="scss">
 .tabHeader {
-  width: 96%;
+  width: 100%;
   height: 70px;
+  line-height: 70px;
   color: #fff;
   background: #242f42;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2%;
   .tabHeader_label {
     display: flex;
     align-items: center;
@@ -73,7 +92,7 @@ export default class TabHeader extends Vue {
   .tabHeader_tool {
     display: flex;
     align-items: center;
-    padding-right: 50px;
+    margin-right: 2%;
     .label_img {
       width: 50px;
       height: 50px;
@@ -89,9 +108,16 @@ export default class TabHeader extends Vue {
     }
   }
   .label_icon {
+    width: 65px;
+    height: 70px;
     font-size: 30px;
     cursor: pointer;
-    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .label_bank {
+    color: #242f42;
   }
 }
 </style>

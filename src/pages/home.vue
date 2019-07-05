@@ -145,15 +145,19 @@ export default class Home extends Vue {
 }
 .content_box {
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 .tabCard {
-  position: fixed;
+  position: absolute;
   width: 100%;
 }
 .tabRouter {
-  position: fixed;
-  width: 100%;
-  top: 115px;
+  position: absolute;
+  width: 90%;
+  top: 45px;
+  left: 50%;
+  margin-left: -45%;
 }
 </style>
 

@@ -2,7 +2,7 @@
   <div class="login">
     <div
       class="login_image"
-      :style="{backgroundImage: 'url(' + bannerImg + ')', backgroundSize:'100% 100%', backgroundRepeat: 'no-repeat'}"
+      :style="{backgroundImage: 'url(' + bannerImg + ')', backgroundSize:'100% 100%', backgroundRepeat: 'no-repeat',backgroundPosition:'center center'}"
     ></div>
     <div class="container">
       <div class="container_header">tzc管理</div>
@@ -63,18 +63,18 @@ export default class Login extends Vue {
 .login {
   width: 100%;
   height: 100%;
-  position: relative;
+  position: absolute;
 }
 .login_image {
-  min-width: 100vh;
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 .container {
   position: absolute;
+  top: 30%;
   left: 50%;
-  top: 50%;
-  width: 350px;
-  margin: -190px 0 0 -175px;
+  width: 400px;
+  margin-left: -200px;
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.5);
   display: flex;
@@ -116,6 +116,12 @@ export default class Login extends Vue {
     border: 1px solid #ccc;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .container {
+    width: 90%;
+    margin-left: -45%;
   }
 }
 </style>
