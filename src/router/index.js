@@ -6,8 +6,10 @@ Vue.use(Router)
 const loginLoadpage = () => import('@/pages/Login.vue');
 const homeLoadPage = () => import('@/pages/Home.vue');
 import Index from '@/components/views/Index';
-import Table from '@/components/views/Table';
 import List from '@/components/views/List';
+import Finance from '@/components/views/Finance';
+import Rich from '@/components/views/Rich';
+import Password from '@/components/views/Password';
 
 const router = new Router({
   routes: [{
@@ -30,6 +32,15 @@ const router = new Router({
       }, {
         path: 'list',
         component: List
+      }, {
+        path: 'finance',
+        component: Finance
+      }, {
+        path: 'rich',
+        component: Rich
+      }, {
+        path: 'password',
+        component: Password
       }
     ]
   }, {

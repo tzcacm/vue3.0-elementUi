@@ -18,12 +18,11 @@
         <el-col :span="4" :xl="3" :md="5" :sm="5" :xs="0">
           <div class="tabHeader_tool">
             <div class="label_icon el-icon-rank" v-on:click="zoom"></div>
-            <div class="label_icon el-icon-message-solid" v-on:click="goMessage"></div>
             <img class="label_img" src="../assets/images/person.jpg" alt="作者" />
           </div>
         </el-col>
         <el-col :span="2" :xl="2" :md="2" :sm="3" :xs="6">
-          <div class="tabHeader_tool">
+          <div class="tabHeader_list">
             <el-dropdown @command="handleCommand">
               <span class="el-dropdown-link">
                 admin
@@ -67,9 +66,6 @@ export default class TabHeader extends Vue {
   closeZoom() {
     document.exitFullscreen();
   }
-  goMessage() {
-    this.$router.push('');
-  }
 }
 </script>
 <style lang="scss">
@@ -93,12 +89,17 @@ export default class TabHeader extends Vue {
     display: flex;
     align-items: center;
     margin-right: 2%;
+    justify-content: flex-end;
     .label_img {
       width: 50px;
       height: 50px;
       border-radius: 50%;
       margin-right: 10px;
     }
+  }
+  .tabHeader_list {
+    display: flex;
+    justify-content: center;
     .el-dropdown-link {
       cursor: pointer;
       color: #409eff;

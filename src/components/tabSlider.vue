@@ -12,13 +12,13 @@
         <el-menu-item
           :key="index"
           :index="items.index"
-          v-if="index <= 0"
+          v-if="!items['unfold']"
           @click="addMenu(items.index,items.title,items.path)"
         >
           <i :class="items.class"></i>
           <span slot="title">{{items.title}}</span>
         </el-menu-item>
-        <el-submenu :key="index" :index="items.index" v-if="index > 0">
+        <el-submenu :key="index" :index="items.index" v-if="items['unfold']">
           <template slot="title">
             <i :class="items.class"></i>
             <span slot="title">{{items.title}}</span>
