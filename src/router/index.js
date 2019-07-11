@@ -5,11 +5,11 @@ Vue.use(Router)
 
 const loginLoadpage = () => import('@/pages/Login.vue');
 const homeLoadPage = () => import('@/pages/Home.vue');
-import Index from '@/components/views/Index';
-import List from '@/components/views/List';
-import Finance from '@/components/views/Finance';
-import Rich from '@/components/views/Rich';
-import Password from '@/components/views/Password';
+import Index from '@/components/views/index/Index';
+import List from '@/components/views/list/List';
+import Finance from '@/components/views/finance/Finance';
+import Rich from '@/components/views/rich/Rich';
+import Password from '@/components/views/passwrod/Password';
 
 const router = new Router({
   routes: [{

@@ -1,5 +1,5 @@
 <template>
-  <div class="index">
+  <div class="statistics">
     <el-row :gutter="24">
       <el-col :span="6" :xl="6" :sm="12" :xs="12">
         <div class="mainBox">
@@ -68,7 +68,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 @Component
-export default class Index extends Vue {}
+export default class Statistics extends Vue {}
 </script>
 <style lang="scss">
 .mainBox {
@@ -113,4 +113,3 @@ export default class Index extends Vue {}
   }
 }
 </style>
-
