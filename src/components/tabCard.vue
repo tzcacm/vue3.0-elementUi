@@ -27,6 +27,12 @@ export default class TabCard extends Vue {
 }
 </script>
 <style lang="scss">
+.tabCard {
+  position: fixed;
+  width: 100%;
+  background: #fff;
+  z-index: 1;
+}
 .tabContent {
   width: 100%;
   display: flex;

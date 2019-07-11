@@ -17,6 +17,8 @@ import ECharts from 'vue-echarts/components/ECharts.vue'
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/pie';
+//引入中国地图
+import 'echarts/map/js/china';
 // 引入需要的 echarts的交互组件
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/legend';

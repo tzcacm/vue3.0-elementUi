@@ -10,8 +10,8 @@
           </el-col>
           <el-col :span="21" :xs="0">
             <div class="mainContent">
-              <div class="mainTitle">新客户</div>
-              <div class="mainCount">1080</div>
+              <div class="mainTitle">人员</div>
+              <div class="mainCount">{{data[0]}}</div>
             </div>
           </el-col>
         </div>
@@ -26,7 +26,7 @@
           <el-col :span="21" :xs="0">
             <div class="mainContent">
               <div class="mainTitle">消息</div>
-              <div class="mainCount">500</div>
+              <div class="mainCount">{{data[1]}}</div>
             </div>
           </el-col>
         </div>
@@ -40,8 +40,8 @@
           </el-col>
           <el-col :span="21" :xs="0">
             <div class="mainContent">
-              <div class="mainTitle">money</div>
-              <div class="mainCount">100,00000000</div>
+              <div class="mainTitle">基金</div>
+              <div class="mainCount">{{data[2]}}</div>
             </div>
           </el-col>
         </div>
@@ -56,7 +56,7 @@
           <el-col :span="21" :xs="0">
             <div class="mainContent">
               <div class="mainTitle">购物车</div>
-              <div class="mainCount">2</div>
+              <div class="mainCount">{{data[3]}}</div>
             </div>
           </el-col>
         </div>
@@ -68,7 +68,20 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 @Component
-export default class Statistics extends Vue {}
+export default class Statistics extends Vue {
+  data = [0, 0, 0, 0];
+  created() {
+    this.data = [
+      this.randomData(),
+      this.randomData(),
+      this.randomData(),
+      this.randomData()
+    ];
+  }
+  randomData() {
+    return Math.round(Math.random() * 1000);
+  }
+}
 </script>
 <style lang="scss">
 .mainBox {

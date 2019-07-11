@@ -4,13 +4,7 @@
     <div class="content">
       <tabSlider :defaultActive="defaultActive" v-on:addMenu="addMenu" :isCollapse="isCollapse"></tabSlider>
       <div class="content_box">
-        <div class="tabCard">
-          <tabCard
-            :editableTabs="editableTabs"
-            v-on:changeTab="changeTab"
-            v-on:removeTab="removeTab"
-          ></tabCard>
-        </div>
+        <tabCard :editableTabs="editableTabs" v-on:changeTab="changeTab" v-on:removeTab="removeTab"></tabCard>
         <div class="tabRouter">
           <router-view></router-view>
         </div>
@@ -147,15 +141,21 @@ export default class Home extends Vue {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: auto;
+}
+.content_box::-webkit-scrollbar {
+  width: 0;
 }
 .tabCard {
-  position: absolute;
+  position: fixed;
   width: 100%;
+  background: #fff;
+  z-index: 1;
 }
 .tabRouter {
   position: absolute;
   width: 90%;
-  top: 45px;
+  top: 60px;
   left: 50%;
   margin-left: -45%;
 }
