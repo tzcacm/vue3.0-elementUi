@@ -1,19 +1,19 @@
 <template>
   <div class="coverage">
     <el-row>
-      <el-col :span="24" :xs="24" style="padding-bottom: 8px;">
+      <el-col :span="24" :xs="24" style="padding-bottom: 4px;">
         <el-card>
           <div slot="header">集团战斗力排行榜</div>
           <chart style="width: 100%;" :options="option1"></chart>
         </el-card>
       </el-col>
-      <el-col :span="12" :xs="24" style="padding-right: 4px;">
+      <el-col :span="12" :xs="24" style="padding-right: 4px;padding-top:4px;">
         <el-card>
           <div slot="header">集团战斗力输入</div>
           <chart style="width: 100%;" :options="option2"></chart>
         </el-card>
       </el-col>
-      <el-col :span="12" :xs="24" style="padding-left: 4px;">
+      <el-col :span="12" :xs="24" style="padding-left: 4px;padding-top:4px;">
         <el-card>
           <div slot="header">集团战斗力输出</div>
           <chart style="width: 100%;" :options="option3"></chart>

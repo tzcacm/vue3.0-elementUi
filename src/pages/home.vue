@@ -131,6 +131,11 @@ export default class Home extends Vue {
 }
 </script>
 <style lang="scss">
+.home {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
 .content {
   position: fixed;
   width: 100%;
