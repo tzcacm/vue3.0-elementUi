@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="tbody" v-for="(items,index) in listData" :key="index">
+        <tr class="tbody" v-for="(items,index) in listData.data" :key="index">
           <td>{{items['name']}}</td>
           <td>{{items['age']}}</td>
           <td>{{items['sex']}}</td>
@@ -35,6 +35,13 @@
         </tr>
       </tbody>
     </table>
+    <el-pagination
+      class="formPagination"
+      background
+      layout="prev, pager, next"
+      :total="listData.total"
+      @current-change="currentChange"
+    ></el-pagination>
     <pageForm
       v-if="isForm"
       :isForm="isForm"
@@ -59,50 +66,164 @@ export default class FormList extends Vue {
   formItem: object = {};
   role = role;
   roleData: string[] = ['董事长', '总裁', '总监', '经理', '业务员'];
-  listData = [
-    {
-      id: 1,
-      name: '唐总',
-      age: '30',
-      sex: '男',
-      power: '董事长',
-      marriage: '未婚',
-      label: ['乐观', '积极', '阳光', '奋斗'],
-      area: '广东',
-      time: new Date().getTime(),
-      authority: '顶级'
-    },
-    {
-      id: 2,
-      name: '叶总',
-      age: '30',
-      sex: '男',
-      power: '董事长',
-      marriage: '未婚',
-      label: ['乐观', '积极', '阳光', '窈窕淑女'],
-      area: '澳门',
-      time: new Date().getTime(),
-      authority: '顶级'
-    },
-    {
-      id: 3,
-      name: '吴总',
-      age: '30',
-      sex: '男',
-      power: '董事长',
-      marriage: '未婚',
-      label: ['乐观', '积极', '阳光', '老当益壮', '少女心'],
-      area: '香港',
-      time: new Date().getTime(),
-      authority: '顶级'
-    }
-  ];
+  listData = {
+    data: [
+      {
+        id: 1,
+        name: '唐总',
+        age: '30',
+        sex: '男',
+        power: '董事长',
+        marriage: '未婚',
+        label: ['乐观', '积极', '阳光', '奋斗'],
+        area: '广东',
+        time: new Date().getTime(),
+        authority: '顶级'
+      },
+      {
+        id: 2,
+        name: '叶总',
+        age: '30',
+        sex: '男',
+        power: '董事长',
+        marriage: '未婚',
+        label: ['乐观', '积极', '阳光', '窈窕淑女'],
+        area: '澳门',
+        time: new Date().getTime(),
+        authority: '顶级'
+      },
+      {
+        id: 3,
+        name: '吴总',
+        age: '30',
+        sex: '男',
+        power: '董事长',
+        marriage: '未婚',
+        label: ['乐观', '积极', '阳光', '老当益壮', '少女心'],
+        area: '香港',
+        time: new Date().getTime(),
+        authority: '顶级'
+      },
+      {
+        id: 4,
+        name: '吴总',
+        age: '30',
+        sex: '男',
+        power: '董事长',
+        marriage: '未婚',
+        label: ['乐观', '积极', '阳光', '老当益壮', '少女心'],
+        area: '香港',
+        time: new Date().getTime(),
+        authority: '顶级'
+      },
+      {
+        id: 5,
+        name: '吴总',
+        age: '30',
+        sex: '男',
+        power: '董事长',
+        marriage: '未婚',
+        label: ['乐观', '积极', '阳光', '老当益壮', '少女心'],
+        area: '香港',
+        time: new Date().getTime(),
+        authority: '顶级'
+      },
+      {
+        id: 6,
+        name: '吴总',
+        age: '30',
+        sex: '男',
+        power: '董事长',
+        marriage: '未婚',
+        label: ['乐观', '积极', '阳光', '老当益壮', '少女心'],
+        area: '香港',
+        time: new Date().getTime(),
+        authority: '顶级'
+      },
+      {
+        id: 7,
+        name: '吴总',
+        age: '30',
+        sex: '男',
+        power: '董事长',
+        marriage: '未婚',
+        label: ['乐观', '积极', '阳光', '老当益壮', '少女心'],
+        area: '香港',
+        time: new Date().getTime(),
+        authority: '顶级'
+      },
+      {
+        id: 8,
+        name: '吴总',
+        age: '30',
+        sex: '男',
+        power: '董事长',
+        marriage: '未婚',
+        label: ['乐观', '积极', '阳光', '老当益壮', '少女心'],
+        area: '香港',
+        time: new Date().getTime(),
+        authority: '顶级'
+      },
+      {
+        id: 9,
+        name: '吴总',
+        age: '30',
+        sex: '男',
+        power: '董事长',
+        marriage: '未婚',
+        label: ['乐观', '积极', '阳光', '老当益壮', '少女心'],
+        area: '香港',
+        time: new Date().getTime(),
+        authority: '顶级'
+      },
+      {
+        id: 10,
+        name: '吴总',
+        age: '30',
+        sex: '男',
+        power: '董事长',
+        marriage: '未婚',
+        label: ['乐观', '积极', '阳光', '老当益壮', '少女心'],
+        area: '香港',
+        time: new Date().getTime(),
+        authority: '顶级'
+      },
+      {
+        id: 11,
+        name: '吴总',
+        age: '30',
+        sex: '男',
+        power: '董事长',
+        marriage: '未婚',
+        label: ['乐观', '积极', '阳光', '老当益壮', '少女心'],
+        area: '香港',
+        time: new Date().getTime(),
+        authority: '顶级'
+      },
+      {
+        id: 12,
+        name: '吴总',
+        age: '30',
+        sex: '男',
+        power: '董事长',
+        marriage: '未婚',
+        label: ['乐观', '积极', '阳光', '老当益壮', '少女心'],
+        area: '香港',
+        time: new Date().getTime(),
+        authority: '顶级'
+      }
+    ],
+    total: 13
+  };
+  created() {
+    localStorage.setItem('currentList', JSON.stringify(this.listData.data));
+  }
   showList(index) {
     this.isForm = true;
-    this.formItem = this.listData[index];
+    this.formItem = this.listData.data[index];
   }
   editForm(data) {
-    this.listData.map(item => {
+    this.listData.data.map(item => {
       if (item['id'] == data['id']) {
         item['name'] = data['name'];
         item['age'] = data['age'];
@@ -121,6 +242,14 @@ export default class FormList extends Vue {
     });
     this.isForm = false;
   }
+  currentChange(event) {
+    let index = event;
+    if (index == 1) {
+      this.listData.data = JSON.parse(localStorage.getItem('currentList'));
+    } else {
+      this.listData.data = [this.listData.data[this.listData.data.length - 1]];
+    }
+  }
   closeForm() {
     this.isForm = false;
   }
@@ -130,7 +259,7 @@ export default class FormList extends Vue {
       cancelButtonText: '取消',
       type: 'warning'
     }).then(() => {
-      this.listData.splice(index, 1);
+      this.listData.data.splice(index, 1);
       this.$message({
         message: '删除成功',
         type: 'success'
@@ -150,6 +279,7 @@ export default class FormList extends Vue {
       font-size: 14px;
       text-align: center;
       border: 1px solid #ccc;
+      padding: 5px;
     }
     .thead {
       font-weight: bold;
@@ -197,6 +327,11 @@ export default class FormList extends Vue {
     .del:hover {
       background: #000;
     }
+  }
+  .formPagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
   }
 }
 </style>

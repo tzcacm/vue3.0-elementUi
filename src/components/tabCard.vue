@@ -34,8 +34,11 @@ export default class TabCard extends Vue {
   z-index: 1;
 }
 .tabContent {
-  width: 100%;
-  display: flex;
+  width: 80%;
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: nowrap;
+  overflow-x: scroll;
   border-bottom: 1px solid #dfdfdf;
   padding: 5px;
   li {
@@ -69,5 +72,11 @@ export default class TabCard extends Vue {
     color: #fff;
     background: #29aff6;
   }
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background-color: transparent;
 }
 </style>

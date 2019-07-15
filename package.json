@@ -10,10 +10,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@tinymce/tinymce-vue": "^2.1.0",
     "axios": "^0.18.0",
     "echarts": "^4.2.1",
     "element-ui": "^2.9.1",
     "rxjs": "^6.5.2",
+    "tinymce": "^5.0.11",
     "vue": "^2.5.2",
     "vue-class-component": "^7.1.0",
     "vue-echarts": "^4.0.3",

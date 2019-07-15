@@ -428,8 +428,5 @@ export default class Coverage extends Vue {
 }
 </script>
 <style lang="scss">
-.coverage {
-  margin-bottom: 100px;
-}
 </style>
 
