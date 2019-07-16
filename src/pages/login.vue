@@ -6,22 +6,21 @@
     ></div>
     <div class="container">
       <div class="container_header">tzc管理</div>
-      <form action>
-        <div class="container_input">
-          <i class="el-icon-user-solid"></i>
-          <el-input class="container_input_text" v-model="account" placeholder="账号"></el-input>
-        </div>
-        <div class="container_input">
-          <i class="el-icon-s-goods"></i>
-          <el-input
-            class="container_input_text"
-            type="password"
-            v-model="password"
-            placeholder="密码"
-          ></el-input>
-        </div>
-        <el-button class="container_button" type="primary" v-on:click="confirm">登录</el-button>
-      </form>
+      <el-form :model="formData">
+        <el-form-item prop="account" :rules="[{ required: true, message: '账号不能为空'}]">
+          <div class="container_input">
+            <i class="el-icon-user-solid"></i>
+            <el-input type="account" v-model.number="formData.account" autocomplete="off"></el-input>
+          </div>
+        </el-form-item>
+        <el-form-item prop="password" :rules="[{ required: true, message: '密码不能为空'}]">
+          <div class="container_input">
+            <i class="el-icon-s-goods"></i>
+            <el-input type="password" v-model.number="formData.password" autocomplete="off"></el-input>
+          </div>
+        </el-form-item>
+      </el-form>
+      <el-button class="container_button" type="primary" @click="confirm">登录</el-button>
     </div>
   </div>
 </template>
@@ -33,26 +32,36 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 @Component
 export default class Login extends Vue {
+  formData = {
+    account: '',
+    password: ''
+  };
   banner: string[] = [
     '/static/img/banner_one.jpg',
     '/static/img/banner_two.jpg'
   ];
   bannerImg: string = '';
-  account: string | number = 'admin';
-  password: string | number = 'admin';
   // 初始化--随机背景图片
   created() {
+    if (localStorage.getItem('personInfo')) {
+      this.formData.account = JSON.parse(
+        localStorage.getItem('personInfo')
+      ).account;
+      this.formData.password = JSON.parse(
+        localStorage.getItem('personInfo')
+      ).password;
+      localStorage.removeItem('personInfo');
+    }
     let random = Math.round(Math.random());
     this.bannerImg = this.banner[random];
   }
   // 登录
   confirm() {
-    if (this.account == '' || this.password == '') {
+    if (this.formData.account == '' || this.formData.password == '') {
       this.$message.warning('请输入账号和密码');
       return;
     }
-    let personInfo = { account: this.account, password: this.password };
-    localStorage.setItem('personInfo', JSON.stringify(personInfo));
+    localStorage.setItem('personInfo', JSON.stringify(this.formData));
     this.$router.push({ path: '/home' });
   }
 }
@@ -76,14 +85,9 @@ export default class Login extends Vue {
   width: 400px;
   margin-left: -200px;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.7);
   display: flex;
   flex-direction: column;
-  form {
-    width: 80%;
-    margin: 0 auto;
-    padding: 10px 0 30px;
-  }
   .container_header {
     width: 100%;
     height: 60px;
@@ -92,30 +96,38 @@ export default class Login extends Vue {
     font-size: 20px;
     border-bottom: 1px solid #ccc;
     color: #ffffff;
+    margin-bottom: 20px;
   }
   .container_input {
     margin-top: 20px;
     display: flex;
     align-items: center;
+    i {
+      width: 46px;
+      height: 38px;
+      display: flex !important;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #ededed;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
     input {
       border-radius: 0;
       border-top-right-radius: 4px;
       border-bottom-right-radius: 4px;
     }
   }
-  .container_button {
-    width: 100%;
-    margin-top: 20px;
+  .el-form-item__content {
+    width: 80%;
+    margin: 0 auto;
+    .el-form-item__error {
+      left: 46px;
+    }
   }
-  i {
-    width: 46px;
-    height: 38px;
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+  .container_button {
+    width: 80%;
+    margin: 20px auto;
   }
 }
 @media screen and (max-width: 450px) {

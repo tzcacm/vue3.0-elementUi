@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store'
 import VueRx from 'vue-rx'
 //引入elementUi
 import ElementUI from 'element-ui'
@@ -51,6 +52,7 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 const app: Vue = new Vue({
   el: '#app',
+  store,
   router,
   render: h => h(App)
 })

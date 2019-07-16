@@ -3,17 +3,18 @@ import Router from 'vue-router';
 
 Vue.use(Router)
 
-const loginLoadpage = () => import('@/pages/Login.vue');
+const loginLoadPage = () => import('@/pages/Login.vue');
 const homeLoadPage = () => import('@/pages/Home.vue');
 import Index from '@/components/views/index/Index';
 import List from '@/components/views/list/List';
 import Finance from '@/components/views/finance/Finance';
 import Rich from '@/components/views/rich/Rich';
 import Password from '@/components/views/passwrod/Password';
+import Observable from '@/components/views/observable/Observable';
 
 const router = new Router({
   routes: [{
-    path: '/',
+    path: '*',
     redirect: '/home'
   }, {
     path: '/home',
@@ -28,6 +29,9 @@ const router = new Router({
       },
       {
         path: 'index',
+        meta: {
+          requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+        },
         component: Index
       }, {
         path: 'list',
@@ -38,6 +42,9 @@ const router = new Router({
       }, {
         path: 'rich',
         component: Rich
+      }, , {
+        path: 'observable',
+        component: Observable
       }, {
         path: 'password',
         component: Password
@@ -49,7 +56,7 @@ const router = new Router({
     meta: {
       requireAuth: false, // 添加该字段，表示进入这个路由是需要登录的
     },
-    component: loginLoadpage
+    component: loginLoadPage
   }]
 });
 

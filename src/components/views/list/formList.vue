@@ -218,6 +218,9 @@ export default class FormList extends Vue {
   created() {
     localStorage.setItem('currentList', JSON.stringify(this.listData.data));
   }
+  destroyed() {
+    localStorage.removeItem('currentList');
+  }
   showList(index) {
     this.isForm = true;
     this.formItem = this.listData.data[index];

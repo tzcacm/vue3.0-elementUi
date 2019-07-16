@@ -33,8 +33,6 @@ export default class Home extends Vue {
   defaultActive: string = '1';
   editableTabs: any[] = [];
   created() {
-    if (JSON.parse(localStorage.getItem('personInfo')))
-      localStorage.removeItem('personInfo');
     if (!this.editableTabs.length) {
       this.editableTabs = [
         {

@@ -1,6 +1,6 @@
 <template>
   <div class="password">
-    <el-image class="image" src="/static/img/person.jpg" :fit="fit"></el-image>
+    <el-image class="image" src="/static/img/person.jpg"></el-image>
     <el-form
       :model="ruleForm"
       :rules="rules"
