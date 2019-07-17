@@ -103,8 +103,6 @@ export default class Password extends Vue {
 </script>
 <style lang="scss">
 .password {
-  width: 50%;
-  margin: 0 auto;
   .image {
     width: 100px;
     height: 100px;
