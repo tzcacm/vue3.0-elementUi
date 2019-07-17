@@ -19,17 +19,25 @@ npm run build
 npm run build --report
 
 # 技术栈
-vue-cli（2版本）+vue-router（路由）+vuex（状态）+axios（xhr）+element(ui库)+rxjs（响应式编程）
+vue-cli（2版本）+vue-router（路由）+vuex（状态）+vue-echarts(视图)+axios（xhr）+element(ui库)+rxjs（响应式编程）
 
 主要扩展语言**typescript**
+
+# 功能模块
+首页数据视图可视化、响应式登录表单、响应式修改密码表单、富文本、数据增删改查、打印机列表。
+
 # 使用说明
 1.菜单栏目可以自由搭配（src/assets/menus/menus.ts）
 
 **unfold为true时代表有子栏目，path为跳转的子路由地址需配置**
 
 2.全局话模块化开发（服务请求模块、管道模块、枚举等等）
+
 # 后台接口
-后期再提供，node_express,待续
+后台提供超简单接口，增删改查，登录，修改权限密码.
+
+node_express，传送门
+
 # 声明
 记得关注、记得点赞
 

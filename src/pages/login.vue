@@ -10,17 +10,17 @@
         <el-form-item prop="account" :rules="[{ required: true, message: '账号不能为空'}]">
           <div class="container_input">
             <i class="el-icon-user-solid"></i>
-            <el-input type="account" v-model.number="formData.account" autocomplete="off"></el-input>
+            <el-input type="account" v-model="formData.account" autocomplete="off"></el-input>
           </div>
         </el-form-item>
         <el-form-item prop="password" :rules="[{ required: true, message: '密码不能为空'}]">
           <div class="container_input">
             <i class="el-icon-s-goods"></i>
-            <el-input type="password" v-model.number="formData.password" autocomplete="off"></el-input>
+            <el-input type="password" v-model="formData.password" autocomplete="off"></el-input>
           </div>
         </el-form-item>
       </el-form>
-      <el-button class="container_button" type="primary" @click="confirm">登录</el-button>
+      <el-button class="container_button" type="primary" @click="confirm" :loading="isLoading">登录</el-button>
     </div>
   </div>
 </template>
@@ -32,6 +32,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 @Component
 export default class Login extends Vue {
+  isLoading: boolean = false;
   formData = {
     account: '',
     password: ''
@@ -43,14 +44,11 @@ export default class Login extends Vue {
   bannerImg: string = '';
   // 初始化--随机背景图片
   created() {
-    if (localStorage.getItem('personInfo')) {
-      this.formData.account = JSON.parse(
-        localStorage.getItem('personInfo')
-      ).account;
-      this.formData.password = JSON.parse(
-        localStorage.getItem('personInfo')
-      ).password;
-      localStorage.removeItem('personInfo');
+    if (this.$store.state.isLogin) {
+      let personInfo = this.$store.state.personInfo;
+      this.formData.account = personInfo.account;
+      this.formData.password = personInfo.password;
+      this.$store.commit('SETISLOGIN', false);
     }
     let random = Math.round(Math.random());
     this.bannerImg = this.banner[random];
@@ -61,8 +59,26 @@ export default class Login extends Vue {
       this.$message.warning('请输入账号和密码');
       return;
     }
-    localStorage.setItem('personInfo', JSON.stringify(this.formData));
-    this.$router.push({ path: '/home' });
+    this.isLoading = true;
+    this.$api.getLogin(this.formData.account, this.$md5(this.formData.password)).subscribe(
+        res => {
+          if (res.data.Success) {
+            this.$store.commit('SETPERSONINFO', this.formData);
+            this.$store.commit('SETISLOGIN', true);
+            this.$message.success('登录成功');
+            this.$router.push({ path: '/home' });
+          } else {
+            this.$message.error(res.data.Message);
+          }
+        },
+        err => {
+          this.isLoading = false;
+          this.$message.error('服务器出现差错');
+        },
+        () => {
+          this.isLoading = false;
+        }
+      );
   }
 }
 </script>

@@ -1,6 +1,8 @@
 import { SERVE_URL } from '../environments/environments';
 import router from '../router';
 import axios from 'axios';
+import { from } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export class HttpService {
 
@@ -42,26 +44,28 @@ export class HttpService {
 
     getData(url, params) {
         this.interceptors();
-        return new Promise((resolve, reject) => {
+        let promise = new Promise((resolve, reject) => {
             this.instance.get(url, { headers: this.headers[0], params: params })
                 .then(res => {
-                    res.status == 200 ? resolve(res) : reject(res.status);
+                    resolve(res);
                 }).catch(err => {
                     reject(err);
                 })
         })
+        return from(promise);
     }
 
     postData(url, params) {
         this.interceptors();
-        return new Promise((resolve, reject) => {
+        let promise = new Promise((resolve, reject) => {
             this.instance.post(url, { headers: this.headers[1], params: params })
                 .then(res => {
-                    res.status == 200 ? resolve(res) : reject(res.status);
+                    resolve(res);
                 }).catch(err => {
                     reject(err);
                 })
         })
+        return from(promise);
     }
 
 

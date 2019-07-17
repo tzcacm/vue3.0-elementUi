@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueRx from 'vue-rx'
+import md5 from 'js-md5';
 //引入elementUi
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -39,13 +40,15 @@ Vue.filter('date', date) //时间管道
 //typescript需要解析
 declare module 'vue/types/vue' {
   interface Vue {
-    $api: any
-    $menu: []
+    $api: any,
+    $menu: [],
+    $md5
   }
 }
 
 Vue.prototype.$menu = menu;//全局挂载导航栏
 Vue.prototype.$api = new ApiService();  //全局挂载api
+Vue.prototype.$md5 = md5;
 
 Vue.config.productionTip = false
 

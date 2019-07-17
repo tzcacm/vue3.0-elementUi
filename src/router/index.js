@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-
+import store from '../store'
 Vue.use(Router)
 
 const loginLoadPage = () => import('@/pages/Login.vue');
@@ -29,9 +29,6 @@ const router = new Router({
       },
       {
         path: 'index',
-        meta: {
-          requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-        },
         component: Index
       }, {
         path: 'list',
@@ -63,7 +60,7 @@ const router = new Router({
 //路由守卫
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
-    if (localStorage.getItem('personInfo')) {
+    if (store.state.isLogin) {
       next();
     } else {
       next({

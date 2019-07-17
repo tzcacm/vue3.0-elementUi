@@ -20,6 +20,6 @@ export class ApiService extends HttpService {
             account: account,
             password: password
         };
-        return this.postData('login', obj);
+        return this.getData('/login', obj);
     }
 }
