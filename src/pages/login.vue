@@ -64,51 +64,40 @@ export default class Login extends Vue {
       .getLogin(this.formData.account, this.$md5(this.formData.password))
       .subscribe(
         res => {
-          this.$store.commit('SETPERSONINFO', this.formData);
-          this.$store.commit('SETISLOGIN', true);
           if (res.data.Success) {
+            this.$store.commit('SETPERSONINFO', this.formData);
+            this.$store.commit('SETISLOGIN', true);
             this.$message.success('登录成功');
             this.$router.push({ path: '/home' });
           } else {
             this.$message.error(res.data.Message);
-            this.$prompt('请自报家门，方可另开渠道', '温馨提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
-              inputPlaceholder: '含字数2位以上'
-            })
-              .then(res => {
-                res['value'] != '' && res['value'].length >= 3
-                  ? this.$router.push({ path: '/home' })
-                  : this.$message('不满足要求');
-              })
-              .catch(err => {
-                console.log('取消状态');
-              });
+            this.register();
           }
         },
         err => {
           this.isLoading = false;
           this.$message.error('服务器出现差错');
-          this.$prompt('请自报家门，方可另开渠道', '温馨提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            inputPlaceholder: '含字数2位以上'
-          })
-            .then(res => {
-              this.$store.commit('SETPERSONINFO', this.formData);
-              this.$store.commit('SETISLOGIN', true);
-              res['value'] != '' && res['value'].length >= 3
-                ? this.$router.push({ path: '/home' })
-                : this.$message('不满足要求');
-            })
-            .catch(err => {
-              console.log('取消状态');
-            });
+          this.register();
         },
         () => {
           this.isLoading = false;
         }
       );
+  }
+
+  //登记
+  register() {
+    this.$prompt('请自报家门，方可另开渠道', '温馨提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      inputPlaceholder: '含字数2位以上'
+    }).then(res => {
+      this.$store.commit('SETPERSONINFO', this.formData);
+      this.$store.commit('SETISLOGIN', true);
+      res['value'] != '' && res['value'].length >= 3
+        ? this.$router.push({ path: '/home' })
+        : this.$message('不满足要求');
+    });
   }
 }
 </script>
