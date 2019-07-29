@@ -89,6 +89,21 @@ export default class Login extends Vue {
         err => {
           this.isLoading = false;
           this.$message.error('服务器出现差错');
+          this.$prompt('请自报家门，方可另开渠道', '温馨提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            inputPlaceholder: '含字数2位以上'
+          })
+            .then(res => {
+              this.$store.commit('SETPERSONINFO', this.formData);
+              this.$store.commit('SETISLOGIN', true);
+              res['value'] != '' && res['value'].length >= 3
+                ? this.$router.push({ path: '/home' })
+                : this.$message('不满足要求');
+            })
+            .catch(err => {
+              console.log('取消状态');
+            });
         },
         () => {
           this.isLoading = false;

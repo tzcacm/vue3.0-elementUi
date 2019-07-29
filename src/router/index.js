@@ -14,20 +14,13 @@ import Observable from '@/components/views/observable/Observable';
 
 const router = new Router({
   routes: [{
-    path: '*',
-    redirect: '/home'
-  }, {
-    path: '/home',
-    name: 'home',
-    component: homeLoadPage,
-    children: [{
-        path: '',
-        meta: {
-          requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-        },
-        component: Index
+      path: '/home',
+      name: 'home',
+      component: homeLoadPage,
+      meta: {
+        requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
       },
-      {
+      children: [{
         path: 'index',
         component: Index
       }, {
@@ -45,16 +38,21 @@ const router = new Router({
       }, {
         path: 'password',
         component: Password
-      }
-    ]
-  }, {
-    path: '/login',
-    name: 'login',
-    meta: {
-      requireAuth: false, // 添加该字段，表示进入这个路由是需要登录的
+      }]
     },
-    component: loginLoadPage
-  }]
+    {
+      path: '/login',
+      name: 'login',
+      meta: {
+        requireAuth: false, // 添加该字段，表示进入这个路由是需要登录的
+      },
+      component: loginLoadPage
+    },
+    {
+      path: '/*',
+      redirect: '/home'
+    }
+  ]
 });
 
 //路由守卫
