@@ -46,6 +46,7 @@ export default class Home extends Vue {
       this.$router.replace(this.editableTabs[0].path);
     }
   }
+
   collapse(event) {
     this.isCollapse = event;
   }
@@ -88,6 +89,7 @@ export default class Home extends Vue {
 
   //删除tab
   removeTab(index) {
+    console.log(this.$router);
     if (this.editableTabs[index].check) {
       this.editableTabs.splice(index, 1);
       if (this.editableTabs.length == 1) {
@@ -113,6 +115,7 @@ export default class Home extends Vue {
     } else {
       let title = this.editableTabs.filter(val => val.check)[0].title;
       this.editableTabs.splice(index, 1);
+
       setTimeout(() => {
         this.editableTabs.map(item => {
           item.check = false;

@@ -5,14 +5,15 @@ Vue.use(Router)
 
 const loginLoadPage = () => import('@/pages/Login.vue');
 const homeLoadPage = () => import('@/pages/Home.vue');
-import Index from '@/components/views/index/Index';
-import List from '@/components/views/list/List';
-import Finance from '@/components/views/finance/Finance';
-import Rich from '@/components/views/rich/Rich';
-import Password from '@/components/views/passwrod/Password';
-import Observable from '@/components/views/observable/Observable';
+const Index = () => import('@/components/views/index/Index');
+const List = () => import('@/components/views/list/List');
+const Finance = () => import('@/components/views/finance/Finance');
+const Rich = () => import('@/components/views/rich/Rich');
+const Password = () => import('@/components/views/passwrod/Password');
+const Observable = () => import('@/components/views/observable/Observable');
 
 const router = new Router({
+  mode: 'history',
   routes: [{
       path: '/home',
       name: 'home',
