@@ -18,7 +18,7 @@
         <el-col :span="4" :xl="3" :md="5" :sm="5" :xs="0">
           <div class="tabHeader_tool">
             <div class="label_icon el-icon-rank" v-on:click="zoom"></div>
-            <img class="label_img" src="../assets/images/person.jpg" alt="作者" />
+            <!-- <img class="label_img" src="../assets/images/person.jpg" alt="作者" /> -->
           </div>
         </el-col>
         <el-col :span="2" :xl="2" :md="2" :sm="3" :xs="6">
@@ -39,34 +39,39 @@
     </div>
   </el-row>
 </template>
-<script lang='ts'>
-import Vue from 'vue';
-import Component from 'vue-class-component';
-@Component
-export default class TabHeader extends Vue {
-  isCollapse: boolean = false;
-  isZoom: boolean = false;
-  docElm = document.documentElement; //W3C
-  changeTab() {
-    this.isCollapse = !this.isCollapse;
-    this.$emit('collapse', this.isCollapse);
+
+<script>
+export default {
+  name: "tabHeader",
+  data() {
+    return {
+      isCollapse: false,
+      isZoom: false,
+      docElm: document.documentElement //W3C
+    };
+  },
+  methods: {
+    changeTab() {
+      this.isCollapse = !this.isCollapse;
+      this.$emit("collapse", this.isCollapse);
+    },
+    handleCommand(event) {
+      event == "a"
+        ? this.$alert("我是高级前端兼CEO唐总")
+        : this.$router.replace("/login");
+    },
+    zoom() {
+      !this.isZoom ? this.openZoom() : this.closeZoom();
+      this.isZoom = !this.isZoom;
+    },
+    openZoom() {
+      this.docElm.requestFullscreen();
+    },
+    closeZoom() {
+      document.exitFullscreen();
+    }
   }
-  handleCommand(event) {
-    event == 'a'
-      ? this.$alert('我是高级前端兼CEO唐总')
-      : this.$router.replace('/login');
-  }
-  zoom() {
-    !this.isZoom ? this.openZoom() : this.closeZoom();
-    this.isZoom = !this.isZoom;
-  }
-  openZoom() {
-    this.docElm.requestFullscreen();
-  }
-  closeZoom() {
-    document.exitFullscreen();
-  }
-}
+};
 </script>
 <style lang="scss">
 .tabHeader {
@@ -122,4 +127,3 @@ export default class TabHeader extends Vue {
   }
 }
 </style>
-

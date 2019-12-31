@@ -1,65 +1,53 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from '../store'
 Vue.use(Router)
 
-const loginLoadPage = () => import('@/pages/Login.vue');
-const homeLoadPage = () => import('@/pages/Home.vue');
-const Index = () => import('@/components/views/index/Index');
-const List = () => import('@/components/views/list/List');
-const Finance = () => import('@/components/views/finance/Finance');
-const Rich = () => import('@/components/views/rich/Rich');
-const Password = () => import('@/components/views/passwrod/Password');
-const Observable = () => import('@/components/views/observable/Observable');
+const IndexLoadPage = () => import( /* webpackChunkName: "Index" */ '@/pages/index/Index.vue');
+const LoginLoadPage = () => import( /* webpackChunkName: "Login" */ '@/pages/login/Login.vue');
+const HomeLoadPage = () => import( /* webpackChunkName: "Home" */ '@/pages/home/Home.vue');
+const LiseLoadPage = () => import( /* webpackChunkName: "List" */ '@/pages/listManage/List.vue');
+const RichLoadPage = () => import( /* webpackChunkName: "List" */ '@/pages/richEdit/Rich.vue');
+const FinanceLoadPage = () => import( /* webpackChunkName: "List" */ '@/pages/financeManage/Finance.vue');
+const SettingLoadPage = () => import( /* webpackChunkName: "List" */ '@/pages/setting/setting.vue');
 
-const router = new Router({
-  mode: 'history',
-  routes: [{
-      path: '/home',
-      name: 'home',
-      component: homeLoadPage,
+let commonComponents = [{
+  path: '/',
+  component: IndexLoadPage,
+  children: [{
+      path: '/',
       meta: {
         requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
       },
-      children: [{
-        path: 'index',
-        component: Index
-      }, {
-        path: 'list',
-        component: List
-      }, {
-        path: 'finance',
-        component: Finance
-      }, {
-        path: 'rich',
-        component: Rich
-      }, , {
-        path: 'observable',
-        component: Observable
-      }, {
-        path: 'password',
-        component: Password
-      }]
+      component: HomeLoadPage
     },
     {
-      path: '/login',
-      name: 'login',
-      meta: {
-        requireAuth: false, // 添加该字段，表示进入这个路由是需要登录的
-      },
-      component: loginLoadPage
-    },
-    {
-      path: '/*',
-      redirect: '/home'
+      path: '/listManage/list',
+      component: LiseLoadPage
+    }, {
+      path: '/richEdit/rich',
+      component: RichLoadPage
+    }, {
+      path: '/financeManage/finance',
+      component: FinanceLoadPage
+    }, {
+      path: '/setting',
+      component: SettingLoadPage
     }
-  ]
+  ],
+}, {
+  path: '/login',
+  component: LoginLoadPage
+}]
+
+const router = new Router({
+  mode: 'hash',
+  routes: commonComponents
 });
 
 //路由守卫
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
-    if (store.state.isLogin) {
+    if (localStorage.getItem('isLogin')) {
       next();
     } else {
       next({

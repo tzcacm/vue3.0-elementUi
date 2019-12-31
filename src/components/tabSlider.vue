@@ -5,49 +5,46 @@
       class="el-menu-vertical-demo"
       background-color="#242f42"
       text-color="#fff"
+      :router="true"
       active-text-color="#29aff6"
       :collapse="isCollapse"
     >
-      <template v-for="(items,index) in menu">
-        <el-menu-item
-          :key="index"
-          :index="items.index"
-          v-if="!items['unfold']"
-          @click="addMenu(items.index,items.title,items.path)"
-        >
-          <i :class="items.class"></i>
-          <span slot="title">{{items.title}}</span>
-        </el-menu-item>
-        <el-submenu :key="index" :index="items.index" v-if="items['unfold']">
+      <template v-for="(item,index) in menu">
+        <el-submenu :key="index" v-if="item['children']" :index="item.path">
           <template slot="title">
-            <i :class="items.class"></i>
-            <span slot="title">{{items.title}}</span>
+            <i :class="item.icon"></i>
+            <span slot="title">{{item.name}}</span>
           </template>
           <el-menu-item
-            v-for="(val,key) in items.data"
-            :key="key"
-            :index="val.index"
-            @click="addMenu(val.index,val.title,val.path)"
-          >{{val.title}}</el-menu-item>
+            :index="val.path"
+            v-for="val in item['children']"
+            v-bind:key="val.name"
+          >{{val.name}}</el-menu-item>
         </el-submenu>
+        <el-menu-item :key="index" v-else :index="item.path">
+          <i :class="item.icon"></i>
+          <span slot="title">{{item.name}}</span>
+        </el-menu-item>
       </template>
     </el-menu>
   </div>
 </template>
-<script lang='ts'>
-import Vue from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
-@Component
-export default class TabSlider extends Vue {
-  @Prop() isCollapse: Boolean;
-  @Prop() defaultActive: string;
-  menu: any[] = this.$menu;
 
-  addMenu(index, title, path) {
-    this.$router.replace(path);
-    this.$emit('addMenu', index, title, path);
+<script>
+export default {
+  name: "tabSlider",
+  props: {
+    isCollapse: Boolean
+  },
+  computed: {
+    menu() {
+      return this.$menus;
+    },
+    defaultActive() {
+      return window.location.hash.substr(1); //刷新页面时，获取location整体的路径==>'/home/one'
+    }
   }
-}
+};
 </script>
 <style lang="scss">
 .el-menu-vertical-demo {
