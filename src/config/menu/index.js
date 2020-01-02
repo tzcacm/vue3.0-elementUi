@@ -1,6 +1,7 @@
 const menus = [{
         path: '/',
         name: '首页',
+        meta: true,
         icon: 'el-icon-menu',
     },
     {
@@ -29,7 +30,7 @@ const menus = [{
             path: '/financeManage/finance',
             name: '财务报表'
         }],
-    },{
+    }, {
         path: '/setting',
         name: '系统设置',
         icon: 'el-icon-setting',

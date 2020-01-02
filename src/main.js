@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import md5 from 'js-md5'
 import menus from './config/menu/index'
-import  createHttp from './providers/index'
+import createHttp from './providers/index'
 //引入elementUi
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -25,8 +25,16 @@ import 'echarts/lib/component/visualMap'
 import 'echarts/lib/component/toolbox'
 Vue.component('chart', ECharts);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
+let notChildren = menus.filter(val => !val["children"]);
+let commonChildren = menus.filter(val => val["children"]);
+let hasChildren = [];
+commonChildren.map(item => {
+  hasChildren = [...hasChildren, ...item['children']]
+})
+
+Vue.prototype.$mainRouter = [...hasChildren, ...notChildren];
 Vue.prototype.$menus = menus;
 Vue.prototype.$api = createHttp();
 Vue.prototype.$md5 = md5;

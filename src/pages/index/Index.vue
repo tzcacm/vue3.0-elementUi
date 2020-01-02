@@ -2,9 +2,9 @@
   <div class="index">
     <TabHeader v-on:collapse="collapse"></TabHeader>
     <div class="content">
-      <tabSlider :isCollapse="isCollapse"></tabSlider>
+      <TabSlider :isCollapse="isCollapse"></TabSlider>
       <div class="content_box">
-        <!-- <tabCard :editableTabs="editableTabs" v-on:changeTab="changeTab" v-on:removeTab="removeTab"></tabCard> -->
+        <TabCard></TabCard>
         <div class="tabRouter">
           <router-view></router-view>
         </div>
@@ -16,11 +16,13 @@
 <script>
 import TabHeader from "@/components/TabHeader.vue";
 import TabSlider from "@/components/TabSlider.vue";
+import TabCard from "@/components/TabCard.vue";
 export default {
   name: "index",
   components: {
     TabHeader,
-    TabSlider
+    TabSlider,
+    TabCard
   },
   data() {
     return {
@@ -28,10 +30,18 @@ export default {
       editableTabs: []
     };
   },
+  mounted() {
+    let obj = {
+      path: this.$route.path,
+      name: this.$mainRouter.find(val => val["path"] == this.$route.path).name,
+      meta: this.$route.meta.requireAuth
+    };
+    this.$store.commit("setTabs", obj);
+  },
   methods: {
     collapse(event) {
       this.isCollapse = event;
-    },
+    }
   }
 };
 </script>

@@ -1,11 +1,11 @@
 <template>
   <div class="tabSlider">
     <el-menu
-      :default-active="defaultActive"
+      :default-active="$route.path"
       class="el-menu-vertical-demo"
       background-color="#242f42"
       text-color="#fff"
-      :router="true"
+      router
       active-text-color="#29aff6"
       :collapse="isCollapse"
     >
@@ -19,9 +19,10 @@
             :index="val.path"
             v-for="val in item['children']"
             v-bind:key="val.name"
+            @click="addMenu(val)"
           >{{val.name}}</el-menu-item>
         </el-submenu>
-        <el-menu-item :key="index" v-else :index="item.path">
+        <el-menu-item :key="index" v-else :index="item.path" @click="addMenu(item)">
           <i :class="item.icon"></i>
           <span slot="title">{{item.name}}</span>
         </el-menu-item>
@@ -39,9 +40,11 @@ export default {
   computed: {
     menu() {
       return this.$menus;
-    },
-    defaultActive() {
-      return window.location.hash.substr(1); //刷新页面时，获取location整体的路径==>'/home/one'
+    }
+  },
+  methods: {
+    addMenu(item) {
+      this.$store.commit("setTabs", item);
     }
   }
 };
